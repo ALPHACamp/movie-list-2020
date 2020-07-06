@@ -2,11 +2,11 @@ const BASE_URL = "https://movie-list.alphacamp.io";
 const INDEX_URL = BASE_URL + "/api/v1/movies/";
 const POSTER_URL = BASE_URL + "/posters/";
 
-const dataPanel = document.getElementById("data-panel");
-const searchForm = document.getElementById("search");
-const searchInput = document.getElementById("search-input");
-const paginator = document.getElementById("pagination");
-const ITEM_PER_PAGE = 8;
+const dataPanel = document.querySelector("#data-panel");
+const searchForm = document.querySelector("#search");
+const searchInput = document.querySelector("#search-input");
+const paginator = document.querySelector("#paginator");
+const ITEM_PER_PAGE = 12;
 
 const movies = [];
 let filteredMovies = [];
