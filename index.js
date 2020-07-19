@@ -1,10 +1,12 @@
 const BASE_URL = 'https://movie-list.alphacamp.io'
 const INDEX_URL = BASE_URL + '/api/v1/movies/'
 const POSTER_URL = BASE_URL + '/posters/'
-const movies = []
+
+const movies = [] //電影總清單
 
 const dataPanel = document.querySelector('#data-panel')
 const searchForm = document.querySelector('#search-form')
+const searchInput = document.querySelector('#search-input')
 
 function renderMovieList(data) {
   let rawHTML = ''
@@ -64,8 +66,23 @@ dataPanel.addEventListener('click', function onPanelClicked(event) {
 
 //listen to search form
 searchForm.addEventListener('submit', function onSearchFormSubmitted(event) {
-  event.preventDefault() //新增這裡
-  console.log('click!')
+  event.preventDefault()
+  const keyword = searchInput.value.trim().toLowerCase()
+
+  let filteredMovies = [] //搜尋清單
+
+  // if (!keyword.length) {
+  //   return alert('請輸入有效字串！')
+  // }
+
+  filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(keyword)
+  )
+
+  if (filteredMovies.length === 0) {
+    return alert(`您輸入的關鍵字：${keyword} 沒有符合條件的電影`)
+  }
+  renderMovieList(filteredMovies)
 })
 
 // send request to index api
