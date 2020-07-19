@@ -8,7 +8,7 @@ const dataPanel = document.querySelector('#data-panel')
 function renderMovieList(data) {
   let rawHTML = ''
   data.forEach((item) => {
-    // title, image
+    // title, image, id
     rawHTML += `<div class="col-sm-3">
     <div class="mb-2">
       <div class="card">
@@ -33,6 +33,35 @@ function renderMovieList(data) {
   dataPanel.innerHTML = rawHTML
 }
 
+function showMovieModal(id) {
+  // get elements
+  const modalTitle = document.querySelector('#movie-modal-title')
+  const modalImage = document.querySelector('#movie-modal-image')
+  const modalDate = document.querySelector('#movie-modal-date')
+  const modalDescription = document.querySelector('#movie-modal-description')
+
+  // send request to show api
+  axios.get(INDEX_URL + id).then((response) => {
+    const data = response.data.results
+
+    // insert data into modal ui
+    modalTitle.innerText = data.title
+    modalDate.innerText = 'Release date: ' + data.release_date
+    modalDescription.innerText = data.description
+    modalImage.innerHTML = `<img src="${
+      POSTER_URL + data.image
+    }" alt="movie-poster" class="img-fluid">`
+  })
+}
+
+// listen to data panel
+dataPanel.addEventListener('click', function onPanelClicked(event) {
+  if (event.target.matches('.btn-show-movie')) {
+    showMovieModal(event.target.dataset.id)
+  }
+})
+
+// send request to index api
 axios
   .get(INDEX_URL)
   .then((response) => {
