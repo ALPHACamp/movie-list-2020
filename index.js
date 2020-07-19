@@ -58,7 +58,15 @@ function showMovieModal(id) {
 }
 
 function addToFavorite(id) {
-  console.log(id)
+  const list = JSON.parse(localStorage.getItem('favoriteMovies')) || []
+  const movie = movies.find((movie) => movie.id === id)
+
+  if (list.some((movie) => movie.id === id)) {
+    return alert('此電影已經在收藏清單中！')
+  }
+
+  list.push(movie)
+  localStorage.setItem('favoriteMovies', JSON.stringify(list))
 }
 
 // listen to data panel
