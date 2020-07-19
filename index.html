@@ -82,7 +82,7 @@
       aria-labelledby="exampleModalLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="movie-modal-title">Modal title</h5>
@@ -92,11 +92,23 @@
               data-dismiss="modal"
               aria-label="Close"
             >
-              <span aria-hidden="true">×</span>
+              <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body" id="movie-modal-body">
-            ...
+            <div class="row">
+              <div class="col-sm-8" id="movie-modal-image">
+                <img
+                  src="https://github.com/ALPHACamp/movie-list-api/blob/master/public/posters/c9XxwwhPHdaImA2f1WEfEsbhaFB.jpg?raw=true"
+                  alt="movie-poster"
+                  class="img-fluid"
+                />
+              </div>
+              <div class="col-sm-4">
+                <p><em id="movie-modal-date">release date: 2020/01/05</em></p>
+                <p id="movie-modal-description">This is a movie.</p>
+              </div>
+            </div>
           </div>
           <div class="modal-footer">
             <button
@@ -106,7 +118,6 @@
             >
               Close
             </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
           </div>
         </div>
       </div>
