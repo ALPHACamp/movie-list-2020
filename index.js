@@ -57,10 +57,16 @@ function showMovieModal(id) {
   })
 }
 
+function addToFavorite(id) {
+  console.log(id)
+}
+
 // listen to data panel
 dataPanel.addEventListener('click', function onPanelClicked(event) {
   if (event.target.matches('.btn-show-movie')) {
     showMovieModal(event.target.dataset.id)
+  } else if (event.target.matches('.btn-add-favorite')) {
+    addToFavorite(Number(event.target.dataset.id))
   }
 })
 
@@ -70,10 +76,6 @@ searchForm.addEventListener('submit', function onSearchFormSubmitted(event) {
   const keyword = searchInput.value.trim().toLowerCase()
 
   let filteredMovies = [] //搜尋清單
-
-  // if (!keyword.length) {
-  //   return alert('請輸入有效字串！')
-  // }
 
   filteredMovies = movies.filter((movie) =>
     movie.title.toLowerCase().includes(keyword)
