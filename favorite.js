@@ -2,7 +2,7 @@ const BASE_URL = 'https://movie-list.alphacamp.io'
 const INDEX_URL = BASE_URL + '/api/v1/movies/'
 const POSTER_URL = BASE_URL + '/posters/'
 
-const movies = JSON.parse(localStorage.getItem('favoriteMovies'))  //收藏清單
+const movies = JSON.parse(localStorage.getItem('favoriteMovies')) //收藏清單
 
 const dataPanel = document.querySelector('#data-panel')
 
@@ -24,9 +24,9 @@ function renderMovieList(data) {
           <button class="btn btn-primary btn-show-movie" data-toggle="modal" data-target="#movie-modal" data-id="${
             item.id
           }">More</button>
-          <button class="btn btn-info btn-add-favorite" data-id="${
+          <button class="btn btn-danger btn-remove-favorite" data-id="${
             item.id
-          }">+</button>
+          }">X</button>
         </div>
       </div>
     </div>
@@ -53,12 +53,23 @@ function showMovieModal(id) {
   })
 }
 
+function removeFromFavorite(id) {
+  if (!movies) return
+
+  const movieIndex = movies.findIndex((movie) => movie.id === id)
+  if (movieIndex === -1) return
+
+  movies.splice(movieIndex, 1)
+  localStorage.setItem('favoriteMovies', JSON.stringify(movies))
+  renderMovieList(movies)
+}
+
 //listen to data panel
 dataPanel.addEventListener('click', function onPanelClicked(event) {
   if (event.target.matches('.btn-show-movie')) {
     showMovieModal(Number(event.target.dataset.id))
-  } else if (event.target.matches('.btn-add-favorite')) {
-    addToFavorite(Number(event.target.dataset.id))
+  } else if (event.target.matches('.btn-remove-favorite')) {
+    removeFromFavorite(Number(event.target.dataset.id))
   }
 })
 
