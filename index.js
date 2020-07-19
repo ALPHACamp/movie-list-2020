@@ -4,6 +4,7 @@ const POSTER_URL = BASE_URL + '/posters/'
 const movies = []
 
 const dataPanel = document.querySelector('#data-panel')
+const searchForm = document.querySelector('#search-form')
 
 function renderMovieList(data) {
   let rawHTML = ''
@@ -59,6 +60,12 @@ dataPanel.addEventListener('click', function onPanelClicked(event) {
   if (event.target.matches('.btn-show-movie')) {
     showMovieModal(event.target.dataset.id)
   }
+})
+
+//listen to search form
+searchForm.addEventListener('submit', function onSearchFormSubmitted(event) {
+  event.preventDefault() //新增這裡
+  console.log('click!')
 })
 
 // send request to index api
