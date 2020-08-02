@@ -113,6 +113,14 @@ searchForm.addEventListener('submit', function onSearchFormSubmitted(event) {
   renderMovieList(filteredMovies)
 })
 
+// listen to paginator
+paginator.addEventListener('click', function onPaginatorClicked(event) {
+  if (event.target.tagName !== 'A') return
+
+  const page = Number(event.target.dataset.page)
+  renderMovieList(getMoviesByPage(page))
+})
+
 // send request to index api
 axios
   .get(INDEX_URL)
