@@ -4,9 +4,12 @@ const POSTER_URL = BASE_URL + '/posters/'
 
 const movies = [] //電影總清單
 
+const MOVIES_PER_PAGE = 12
+
 const dataPanel = document.querySelector('#data-panel')
 const searchForm = document.querySelector('#search-form')
 const searchInput = document.querySelector('#search-input')
+const paginator = document.querySelector('#paginator')
 
 function renderMovieList(data) {
   let rawHTML = ''
@@ -34,6 +37,21 @@ function renderMovieList(data) {
   </div>`
   })
   dataPanel.innerHTML = rawHTML
+}
+
+function renderPaginator(amount) {
+  const numberOfPages = Math.ceil(amount / MOVIES_PER_PAGE)
+  let rawHTML = ''
+
+  for (let page = 1; page <= numberOfPages; page++) {
+    rawHTML += `<li class="page-item"><a class="page-link" href="#" data-page="${page}">${page}</a></li>`
+  }
+  paginator.innerHTML = rawHTML
+}
+
+function getMoviesByPage(page) {
+  const startIndex = (page - 1) * MOVIES_PER_PAGE
+  return movies.slice(startIndex, startIndex + MOVIES_PER_PAGE)
 }
 
 function showMovieModal(id) {
@@ -100,6 +118,7 @@ axios
   .get(INDEX_URL)
   .then((response) => {
     movies.push(...response.data.results)
-    renderMovieList(movies)
+    renderPaginator(movies.length)
+    renderMovieList(getMoviesByPage(1))
   })
   .catch((err) => console.log(err))
